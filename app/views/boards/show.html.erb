@@ -11,7 +11,7 @@
     <li>
       <%= list.title %>
       <p>
-        <%= link_to 'Show tasks', edit_board_list_path(@board, list) %>
+        <%= link_to 'Show tasks', board_list_path(@board, list) %>
         <%= link_to 'edit list', edit_board_list_path(@board, list) %>
         <%= link_to 'delete list', board_list_path(@board, list), method: :delete %>
       </p>
