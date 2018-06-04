@@ -1,0 +1,12 @@
+<h1><%= @task.id ? 'Edit task' : 'Create task' %></h1>
+<hr/>
+
+<%= form_for [@list, @task] do |f| %>
+  <%= f.label :body %>
+  <%= f.text_field :body, required: true %>
+  <br/>
+  <%= f.label :priority %>
+  <%= f.text_field :priority %>
+  <br />
+  <%= f.submit %>
+<% end %>

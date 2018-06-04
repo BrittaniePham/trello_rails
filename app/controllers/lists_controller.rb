@@ -19,7 +19,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = @board.lists.create(list_params)
+    @list = @board.lists.new(list_params)
 
     if @list.save
       redirect_to board_path(@board)

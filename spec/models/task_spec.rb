@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+
   describe 'attributes' do
     it 'has body' do
-      body = 'sign up'
+      body = 'sign up for school'
       task = Task.create(body: body)
       expect(task.body).to eq(body)
     end
 
     it 'has priority' do
-      priority = 1
+      priority = 3
       task = Task.create(priority: priority)
       expect(task.priority).to eq(priority)
     end
