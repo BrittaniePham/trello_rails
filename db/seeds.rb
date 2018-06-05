@@ -5,3 +5,25 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+8.times do 
+  board = Board.create(
+    title: ['Home', 'Work', 'School', 'Bootcamp', 'Family'].sample
+    )
+
+  8.times do |x|
+    list = board.lists.create(
+      title: ['To Do', 'In Progress', 'Bugs', "Finished", 'Done', 'Almost Done', 'Group'].sample,
+      priority: x
+    )
+
+    10.times do |y|
+      list.tasks.create(
+        body: ['buy groceries', 'assignment 1', 'do laundry', 'hang up clothes', 'wash dishes', 'file papers', 'send mail', 'sign papers'].sample,
+        priority: y
+      )
+    end
+  end
+end
+
+puts 'seeded'

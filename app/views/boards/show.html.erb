@@ -7,10 +7,13 @@
 <%= link_to 'Create a new list', new_board_list_path(@board) %>
 <br />
 <ul>
-  <% @board.lists.each do |list| %>
+  <% @board.lists.by_priority.each do |list| %>
     <li>
       <%= list.title %>
+      <%= list.priority %>
       <p>
+        <%= link_to 'move up', update_list_priority_path(list), method: :put %>
+        <%= link_to 'move down' %>
         <%= link_to 'Show tasks', board_list_path(@board, list) %>
         <%= link_to 'edit list', edit_board_list_path(@board, list) %>
         <%= link_to 'delete list', board_list_path(@board, list), method: :delete %>
