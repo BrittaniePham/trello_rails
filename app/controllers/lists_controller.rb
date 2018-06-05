@@ -1,6 +1,5 @@
 class ListsController < ApplicationController
   before_action :set_board
-  skip_before_action :set_board, only: [:update_list_priority]
   before_action :set_list, only: [:show, :edit, :update, :destroy, :update_list_priority]
 
   def index
@@ -46,8 +45,10 @@ class ListsController < ApplicationController
   end
 
   def update_list_priority
-    @list.priority -= 1
-    @list.save
+    list_to_move_down = @board.lists.find_by(priority: @list.priority - 1)
+    @list.update(priority: list_to_move_down.priority)
+    list_to_move_down.update(priority: list_to_move_down.priority + 1)
+
     redirect_to board_path(@list.board_id)
   end
 

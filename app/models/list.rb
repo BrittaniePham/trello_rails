@@ -8,4 +8,8 @@ class List < ApplicationRecord
     order(:priority)
   end
 
+  def is_first?
+    self.priority === 0
+  end
+
 end
