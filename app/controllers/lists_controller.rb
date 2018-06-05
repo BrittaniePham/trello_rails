@@ -4,6 +4,7 @@ class ListsController < ApplicationController
 
   def index
     @lists = @board.lists
+    render :show
   end
 
   def show
