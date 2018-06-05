@@ -4,7 +4,7 @@
 <h2>Tasks</h2>
 <%= link_to 'Add a new task', new_list_task_path(@list) %>
 <br />
-<Ol>
+<ul>
   <% @list.tasks.each do |task| %>
     <li>
       <%= task.body %>
@@ -14,4 +14,4 @@
       </p>
     </li>
   <% end %>
-</Ol>
+</ul>

@@ -6,7 +6,7 @@
 <h2>Lists</h2>
 <%= link_to 'Create a new list', new_board_list_path(@board) %>
 <br />
-<Ol>
+<ul>
   <% @board.lists.each do |list| %>
     <li>
       <%= list.title %>
@@ -17,5 +17,5 @@
       </p>
     </li>
   <% end %>
-</Ol>
+</ul>
 
