@@ -23,7 +23,7 @@ before_action :set_board, only: [:show, :update, :edit, :destroy]
     if @board.save
       redirect_to boards_path
     else
-      render :new
+      render :form
     end
   end
 
@@ -31,7 +31,7 @@ before_action :set_board, only: [:show, :update, :edit, :destroy]
     if @board.update(board_params)
       redirect_to @board
     else
-      render :edit
+      render :form
     end
   end
 

@@ -39,14 +39,21 @@ class ListsController < ApplicationController
     end
   end
 
-  def destroy
-    @list.destroy
+  def destroy ###### FIX ME
+    destroyed = @list.destroy
+
+    @board.lists.each do |list|
+      if list.priority > destroyed.priority
+        list.priority = list.priority - 1
+      end
+    end
+
     redirect_to board_path(@board)
   end
 
   def update_list_priority
     list_to_move_down = @board.lists.find_by(priority: @list.priority - 1)
-    @list.update(priority: list_to_move_down.priority)
+    @list.update(priority: list_to_move_down.priority) #delete a list, the rest of the numbers do not change
     list_to_move_down.update(priority: list_to_move_down.priority + 1)
 
     redirect_to board_path(@list.board_id)
