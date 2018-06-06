@@ -73,21 +73,63 @@ RSpec.describe ListsController, type: :controller do
         expect(response).to be_successful
       end
     end
-
   end
+
+  #---------------------------------------------------------------------------------------------------
 
   describe "PUT #update" do
     context "with valid params" do
+
+      let(:new_attributes) {
+        { title: 'New Title' }
+      }
+
+      it "updates the requested list" do
+        list = FactoryBot.create(:list)
+        put :update, params: { board_id: list.board_id, id: list.id, list: new_attributes }
+        list.reload
+        expect(list.title).to eq(new_attributes[:title])
+      end
+
+      it "redirects to requested board" do
+        list = FactoryBot.create(:list)
+        put :update, params: { board_id: list.board_id, id: list.id, list: new_attributes }
+        expect(response).to redirect_to(list.board)
+      end
     end
 
     context "with invalid params" do
+      it "does not update list" do
+        list = FactoryBot.create(:list)
+        put :update, params: { board_id: list.board_id, id: list.id, list: invalid_attributes }
+        list.reload
+        expect(list.title).to_not eq(invalid_attributes[:title])
+      end
+
+      it "returns a success response" do
+        list = FactoryBot.create(:list)
+        put :update, params: { board_id: list.board_id, id: list.id, list: invalid_attributes }
+        expect(response).to be_successful
+      end
     end
   end
 
   describe "DELETE #destroy" do
+    it "destroys the requested list" do
+      list = FactoryBot.create(:list)
+      expect {
+        delete :destroy, params: { board_id: list.board_id, id: list.id, list: valid_attributes }
+      }.to change(List, :count).by(-1)
+    end
+
+    it "redirects to requested board" do
+      list = FactoryBot.create(:list)
+      delete :destroy, params: { board_id: list.board_id, id: list.id, list: valid_attributes }
+      expect(response).to redirect_to(list.board)
+    end
   end
 
-  describe "PUT update_list_priority" do
+  describe "PUT #update_list_priority" do
 
   end
 
