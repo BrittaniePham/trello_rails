@@ -13,7 +13,6 @@ RSpec.describe ListsController, type: :controller do
   describe "GET #index" do
     it "returns http success" do
       list = FactoryBot.create(:list)
-      
       get :index, params: { board_id: list.board_id }
       expect(response).to be_successful
     end
@@ -75,8 +74,6 @@ RSpec.describe ListsController, type: :controller do
     end
   end
 
-  #---------------------------------------------------------------------------------------------------
-
   describe "PUT #update" do
     context "with valid params" do
 
@@ -129,8 +126,12 @@ RSpec.describe ListsController, type: :controller do
     end
   end
 
-  describe "PUT #update_list_priority" do
+  # describe "PUT #update_list_priority" do
+  #   it "switches two lists priorities"
+  #     list1 = FactoryBot.create(:list)
+  #     list2 = FactoryBot.create(:list, priority: 2)
 
-  end
+  #     put :update, params: { board_id: list.board_id, id: list.id, list: valid_attributes }
+  # end
 
 end

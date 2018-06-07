@@ -12,10 +12,18 @@
       <%= list.title %>
       <%= list.priority %>
       <p>
-        <% if !list.is_first? %>
+        <% if list.is_first? %>
+          <%= link_to 'move down', downdate_list_priority_path(@board, list), method: :put %>
+        <% end %>
+        <% highest = @board.lists.maximum('priority') %>
+        <% if list.priority == highest %>
           <%= link_to 'move up', update_list_priority_path(@board, list), method: :put %>
         <% end %>
-        <%= link_to 'move down' %>
+        <% if !list.is_first? && list.priority != highest %>
+          <%= link_to 'move up', update_list_priority_path(@board, list), method: :put %>
+          <%= link_to 'move down', downdate_list_priority_path(@board, list), method: :put %>
+        <% end %>
+        
         <%= link_to 'Show tasks', board_list_path(@board, list) %>
         <%= link_to 'edit list', edit_board_list_path(@board, list) %>
         <%= link_to 'delete list', board_list_path(@board, list), method: :delete %>

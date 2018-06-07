@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_board
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :update_list_priority]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :update_list_priority, :downdate_list_priority]
 
   def index
     @lists = @board.lists
@@ -20,10 +20,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = @board.lists.new(list_params)
-
-    max = @board.lists.maximum('priority')
-    @list.priority = max + 1
+    set_priority_on_creation(@board)
 
     if @list.save
       redirect_to board_path(@board)
@@ -40,7 +37,7 @@ class ListsController < ApplicationController
     end
   end
 
-  def destroy ###### FIX ME
+  def destroy
     destroyed = @list.destroy
 
     @board.lists.each do |list|
@@ -54,9 +51,18 @@ class ListsController < ApplicationController
   end
 
   def update_list_priority
+    # move_up(@board)
     list_to_move_down = @board.lists.find_by(priority: @list.priority - 1)
     @list.update(priority: list_to_move_down.priority) #delete a list, the rest of the numbers do not change
     list_to_move_down.update(priority: list_to_move_down.priority + 1)
+
+    redirect_to board_path(@list.board_id)
+  end
+
+  def downdate_list_priority
+    list_to_move_up = @board.lists.find_by(priority: @list.priority + 1)
+    @list.update(priority: list_to_move_up.priority) #delete a list, the rest of the numbers do not change
+    list_to_move_up.update(priority: list_to_move_up.priority - 1)
 
     redirect_to board_path(@list.board_id)
   end
