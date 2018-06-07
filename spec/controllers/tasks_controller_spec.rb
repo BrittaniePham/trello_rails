@@ -15,7 +15,7 @@ RSpec.describe TasksController, type: :controller do
       task = FactoryBot.create(:task)
 
       get :index, params: {list_id: task.list_id}
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -23,22 +23,24 @@ RSpec.describe TasksController, type: :controller do
     it "returns http success" do
       task = FactoryBot.create(:task)
 
-      get :show, params: {list_id: task.list_id, id: task.id}
-      expect(response).to have_http_status(:success)
+      get :show, params: {list_id: task.list_id, id: task.id }
+      expect(response).to be_successful
     end
   end
 
   describe "GET #new" do
     it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
+      task = FactoryBot.create(:task)
+      get :new, params: { list_id: task.list_id }
+      expect(response).to be_successful
     end
   end
 
   describe "GET #edit" do
     it "returns http success" do
-      get :edit
-      expect(response).to have_http_status(:success)
+      task = FactoryBot.create(:task)
+      get :edit, params: {list_id: task.list_id, id: task.id }
+      expect(response).to be_successful
     end
   end
 
