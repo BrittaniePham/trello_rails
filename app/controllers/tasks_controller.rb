@@ -21,7 +21,9 @@ class TasksController < ApplicationController
   end
 
   def create
+    # set_priority_on_creation(@list)
     @task = @list.tasks.new(task_params)
+    
 
     if @task.save
       redirect_to board_list_path(@list.board_id, @list)

@@ -4,9 +4,9 @@
 <%= form_for [@list, @task] do |f| %>
   <%= f.label :body %>
   <%= f.text_field :body, required: true %>
-  <br/>
+  <br />
   <%= f.label :priority %>
-  <%= f.text_field :priority %>
+  <%= f.text_field :priority, required: true %>
   <br />
   <%= f.submit %>
 <% end %>
